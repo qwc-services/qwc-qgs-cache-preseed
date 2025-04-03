@@ -1,7 +1,5 @@
 #!/bin/sh
 
-projects=$(find /data -name '*'${QGS_EXT})
-
 preseed() {
   url=$1
   nr=$2
