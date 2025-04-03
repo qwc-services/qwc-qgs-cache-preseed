@@ -20,9 +20,9 @@ fi
 
 # Setup cron job
 cat > $HOME/.cron_env <<EOF
-export QGS_EXT=.qgs
-export FCGI_INSTANCES=10
-export SLEEP_INTERVAL=1
+export QGS_EXT=${QGS_EXT}
+export FCGI_INSTANCES=${FCGI_INSTANCES}
+export SLEEP_INTERVAL=${SLEEP_INTERVAL}
 EOF
 echo "$CRON_SCHEDULE . $HOME/.cron_env; /app/qgs_cache_preseed.sh >/proc/1/fd/1 2>/proc/1/fd/2" | crontab -
 
