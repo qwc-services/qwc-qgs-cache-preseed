@@ -6,7 +6,7 @@ QWC QGS Cache Pre-Seed
 
 Docker image for pre-seeding the QGIS Server QGS project cache.
 
-This image will periodically query the capabilities for all QGS projects below
+This image will periodically query the capabilities for all/selected QGS projects below
 the projects directory to ensure that the projects are cached in the QGIS Server
 project cache, helping to avoid slow server responses which occur when a project
 is not in cache.
