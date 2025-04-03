@@ -47,7 +47,7 @@ To control which QGS projects will be processed, you can:
 - Mount a file to `/preseed_services.txt` which contains the services names, one per line. For example:
   -  `subdir/projectname` for a QGS file located in `qgs-resources/subdir/projectname.qgs`
   - `pg/schema/projectname` for a QGS project located in a DB in schema `schema` and named `projectname`
-- Mount the `qgs-resources` dir (or whichever directory is mounted to `/data` for `qwc-qgis-server`) to `/data`, which will be then searches for projects (ending which `$QGS_EXT`).
+- Mount the `qgs-resources` dir (or whichever directory is mounted to `/data` for `qwc-qgis-server`) to `/data`, which will be then searches for projects (ending with `$QGS_EXT`).
 
 The following environment variables can be set:
 
