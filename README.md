@@ -34,13 +34,20 @@ Add the `qwc-qgs-cache-preseed` container configuration to your QWC `docker-comp
       QGS_EXT: ".qgs"
       FCGI_INSTANCES: 10
     volumes:
-      - ./volumes/qgs-resources:/data:ro
+      - ./volumes/preseed_services.txt:/preseed_services.txt:ro
+      # OR
+      # - ./volumes/qgs-resources:/data:ro
 ```
 
 Configuration
 -------------
 
-Make sure to mount the `qgs-resources` dir (or whichever directory is mounted to `/data` for `qwc-qgis-server`) to `/data`.
+To control which QGS projects will be processed, you can:
+
+- Mount a file to `/preseed_services.txt` which contains the services names, one per line. For example:
+  -  `subdir/projectname` for a QGS file located in `qgs-resources/subdir/projectname.qgs`
+  - `pg/schema/projectname` for a QGS project located in a DB in schema `schema` and named `projectname`
+- Mount the `qgs-resources` dir (or whichever directory is mounted to `/data` for `qwc-qgis-server`) to `/data`, which will be then searches for projects (ending which `$QGS_EXT`).
 
 The following environment variables can be set:
 
