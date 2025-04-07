@@ -10,7 +10,7 @@ preseed() {
 
 if [ -f /preseed_services.txt ]; then
   echo "Reading services names from preseed_services.txt..."
-  service_names=$(cat /preseed_services.txt | sed 's|^/ows/||');
+  service_names=$(cat /preseed_services.txt | sed 's|^/ows/||; s|\r||');
 elif [ -d /data ]; then
   echo "Scanning /data for projects..."
   service_names=$(find /data -name '*'${QGS_EXT} | sed "s|^/data/||; s|${QGS_EXT}$||")
