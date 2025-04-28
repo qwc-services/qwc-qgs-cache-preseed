@@ -1,6 +1,6 @@
 FROM alpine:3.21
 
-RUN apk add --no-cache curl cronie
+RUN apk add --no-cache curl cronie postgresql-client
 
 WORKDIR /app
 COPY qgs_cache_preseed.sh /app/qgs_cache_preseed.sh
@@ -19,6 +19,12 @@ ENV SLEEP_INTERVAL=1
 
 # The default URL of the QGIS server to send requests to
 ENV DEFAULT_QGIS_SERVER_URL="http://qwc-qgis-server/ows/"
+
+# Connection URL for configuration database to read QGIS project files
+ENV PGSERVICEFILE="/pg_service.conf"
+ENV CONFIG_DB_URL="postgresql:///?service=qgisprojects"
+# The name of the DB schema which stores the project files in a table 'qgis_projects'.
+ENV PG_DB_SCHEMA="qwc_config"
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
