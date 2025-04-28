@@ -21,7 +21,7 @@ ENV SLEEP_INTERVAL=1
 ENV DEFAULT_QGIS_SERVER_URL="http://qwc-qgis-server/ows/"
 
 # Connection URL for configuration database to read QGIS project files
-ENV PGSERVICEFILE="/pg_service.conf"
+ENV PGSERVICEFILE="/srv/pg_service.conf"
 ENV CONFIG_DB_URL="postgresql:///?service=qgisprojects"
 # The name of the DB schema which stores the project files in a table 'qgis_projects'.
 ENV PG_DB_SCHEMA="qwc_config"

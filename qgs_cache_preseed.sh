@@ -14,7 +14,7 @@ if [ -f /preseed_services.txt ]; then
 elif [ -d /data ]; then
   echo "Scanning /data for projects..."
   service_names=$(find /data -name '*'${QGS_EXT} | sed "s|^/data/||; s|${QGS_EXT}$||")
-elif [ -f /pg_service.conf ]; then
+elif [ -f /srv/pg_service.conf ]; then
   echo "Reading services names from database..."
   if ! psql service="qgisprojects" -c '\q' 2>/dev/null; then
     echo "Database is not available. Exiting."
