@@ -17,6 +17,8 @@ ENV FCGI_INSTANCES=10
 # The sleep interval in seconds between sending requests
 ENV SLEEP_INTERVAL=1
 
+# The default URL of the QGIS server to send requests to
+ENV DEFAULT_QGIS_SERVER_URL="http://qwc-qgis-server/ows/"
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

@@ -21,7 +21,7 @@ fi
 
 echo "$service_names" | while IFS= read -r service_name; do
   echo "Processing service ${service_name}"
-  url="http://qwc-qgis-server/ows/${service_name}?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0"
+  url="${DEFAULT_QGIS_SERVER_URL}${service_name}?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0"
   echo "- Request URL: ${url}"
 
   pids=""

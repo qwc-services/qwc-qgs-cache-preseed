@@ -51,13 +51,14 @@ To control which QGS projects will be processed, you can:
 
 The following environment variables can be set:
 
-| Name                 | Default     | Description                                                                      |
-|----------------------|-------------|----------------------------------------------------------------------------------|
-| `CRON_SCHEDULE`      | `0 3 * * *` | Interval at which the pre-seeding script is run. Default: every day at 03:00.    |
-| `EXECUTE_ON_STARTUP` | `0`         | Whether to run the script when the container starts.                             |
-| `QGS_EXT`            | `.qgs`      | The QGS project extension to look for (`.qgs` or `.qgz`).                        |
-| `FCGI_INSTANCES`     | `10`        | The number of FCGI instances (i.e. the number if simultaneous requests to send). |
-| `SLEEP_INTERVAL`     | `1`         | The sleep interval in seconds between sending requests.                          |
+| Name                      | Default                       | Description                                                                      |
+|---------------------------|-------------------------------|----------------------------------------------------------------------------------|
+| `CRON_SCHEDULE`           | `0 3 * * *`                   | Interval at which the pre-seeding script is run. Default: every day at 03:00.    |
+| `EXECUTE_ON_STARTUP`      | `0`                           | Whether to run the script when the container starts.                             |
+| `QGS_EXT`                 | `.qgs`                        | The QGS project extension to look for (`.qgs` or `.qgz`).                        |
+| `FCGI_INSTANCES`          | `10`                          | The number of FCGI instances (i.e. the number if simultaneous requests to send). |
+| `SLEEP_INTERVAL`          | `1`                           | The sleep interval in seconds between sending requests.                          |
+| `DEFAULT_QGIS_SERVER_URL` | `http://qwc-qgis-server/ows/` | The default URL of the QGIS server to send requests to.                          |
 
 *Note*: You should set `FCGI_MIN_PROCESSES` equals to `FCGI_MAX_PROCESSES` in the `qwc-qgis-server` container configuration
 and `FCGI_INSTANCES` to the same number in the `qwc-qgs-cache-preseed` container configuration.
