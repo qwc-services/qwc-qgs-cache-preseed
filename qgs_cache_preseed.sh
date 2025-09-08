@@ -14,14 +14,22 @@ if [ -f /preseed_services.txt ]; then
 elif [ -d /data ]; then
   echo "Scanning /data for projects..."
   service_names=$(find /data -name '*'${QGS_EXT} | sed "s|^/data/||; s|${QGS_EXT}$||")
+elif [ -f /srv/pg_service.conf ]; then
+  echo "Reading services names from database..."
+  if ! psql service="qgisprojects" -c '\q' 2>/dev/null; then
+    echo "Database is not available. Exiting."
+    exit 1
+  else
+    service_names=$(psql service="qgisprojects" -t -A -c "SELECT name FROM ${PG_DB_SCHEMA}.qgis_projects;" | sed "s|^|pg/${PG_DB_SCHEMA}/|")
+  fi
 else
-  echo "No service names found. Mount a file to /preseed_services.txt or mount your projects dir to /data."
+  echo "No service names found. Mount a file to /preseed_services.txt, mount your projects dir to /data or use a database connection."
   exit 0
 fi
 
 echo "$service_names" | while IFS= read -r service_name; do
   echo "Processing service ${service_name}"
-  url="http://qwc-qgis-server/ows/${service_name}?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0"
+  url="${DEFAULT_QGIS_SERVER_URL}${service_name}?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0"
   echo "- Request URL: ${url}"
 
   pids=""

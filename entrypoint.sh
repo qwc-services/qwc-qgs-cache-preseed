@@ -4,7 +4,7 @@ mkdir -p $HOME/.cache
 # Wait for qwc-qgis-server
 while true; do
   echo -n "Waiting for qwc-qgis-server"
-  status_code=$(curl -o /dev/null -s -w "%{http_code}" http://qwc-qgis-server/ows)
+  status_code=$(curl -o /dev/null -s -w "%{http_code}" ${DEFAULT_QGIS_SERVER_URL})
   if [ "$status_code" -eq 000 ]; then
     echo -n "."
     sleep 1

@@ -37,6 +37,8 @@ Add the `qwc-qgs-cache-preseed` container configuration to your QWC `docker-comp
       - ./volumes/preseed_services.txt:/preseed_services.txt:ro
       # OR
       # - ./volumes/qgs-resources:/data:ro
+      # OR
+      # - ./pg_service.conf:/srv/pg_service.conf:ro
 ```
 
 Configuration
@@ -48,16 +50,19 @@ To control which QGS projects will be processed, you can:
   -  `subdir/projectname` for a QGS file located in `qgs-resources/subdir/projectname.qgs`
   - `pg/schema/projectname` for a QGS project located in a DB in schema `schema` and named `projectname`
 - Mount the `qgs-resources` dir (or whichever directory is mounted to `/data` for `qwc-qgis-server`) to `/data`, which will be then searches for projects (ending with `$QGS_EXT`).
+- Mount a postgres service configuration file to `/srv/pg_service.conf`. The service file should contain a `[qgisprojects]` service definition. It would consider all projects located in the service DB in a specific schema. The ENV `PG_DB_SCHEMA` can be used to set the schema name (defaults to `qwc_config`). 
 
 The following environment variables can be set:
 
-| Name                 | Default     | Description                                                                      |
-|----------------------|-------------|----------------------------------------------------------------------------------|
-| `CRON_SCHEDULE`      | `0 3 * * *` | Interval at which the pre-seeding script is run. Default: every day at 03:00.    |
-| `EXECUTE_ON_STARTUP` | `0`         | Whether to run the script when the container starts.                             |
-| `QGS_EXT`            | `.qgs`      | The QGS project extension to look for (`.qgs` or `.qgz`).                        |
-| `FCGI_INSTANCES`     | `10`        | The number of FCGI instances (i.e. the number if simultaneous requests to send). |
-| `SLEEP_INTERVAL`     | `1`         | The sleep interval in seconds between sending requests.                          |
+| Name                      | Default                       | Description                                                                      |
+|---------------------------|-------------------------------|----------------------------------------------------------------------------------|
+| `CRON_SCHEDULE`           | `0 3 * * *`                   | Interval at which the pre-seeding script is run. Default: every day at 03:00.    |
+| `EXECUTE_ON_STARTUP`      | `0`                           | Whether to run the script when the container starts.                             |
+| `QGS_EXT`                 | `.qgs`                        | The QGS project extension to look for (`.qgs` or `.qgz`).                        |
+| `FCGI_INSTANCES`          | `10`                          | The number of FCGI instances (i.e. the number if simultaneous requests to send). |
+| `SLEEP_INTERVAL`          | `1`                           | The sleep interval in seconds between sending requests.                          |
+| `DEFAULT_QGIS_SERVER_URL` | `http://qwc-qgis-server/ows/` | The default URL of the QGIS server to send requests to.                          |
+| `PG_DB_SCHEMA`            | `qwc_config`                  | The name of the DB schema which stores QGIS projects in a table `qgis_projects`. |
 
 *Note*: You should set `FCGI_MIN_PROCESSES` equals to `FCGI_MAX_PROCESSES` in the `qwc-qgis-server` container configuration
 and `FCGI_INSTANCES` to the same number in the `qwc-qgs-cache-preseed` container configuration.
