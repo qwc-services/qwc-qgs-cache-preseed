@@ -23,6 +23,7 @@ cat > $HOME/.cron_env <<EOF
 export QGS_EXT=${QGS_EXT}
 export FCGI_INSTANCES=${FCGI_INSTANCES}
 export SLEEP_INTERVAL=${SLEEP_INTERVAL}
+export DEFAULT_QGIS_SERVER_URL=${DEFAULT_QGIS_SERVER_URL}
 EOF
 echo "$CRON_SCHEDULE . $HOME/.cron_env; /app/qgs_cache_preseed.sh >/proc/1/fd/1 2>/proc/1/fd/2" | crontab -
 
