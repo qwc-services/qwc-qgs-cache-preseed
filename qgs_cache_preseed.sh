@@ -3,9 +3,10 @@
 preseed() {
   url=$1
   nr=$2
-  echo "- Sending request $nr"
+  service_name=$3
+  echo "- Sending request $nr for ${service_name}"
   code=$(curl -o /dev/null -s -w "%{http_code}" "${url}")
-  echo "- Request $nr completed with status code $code"
+  echo "- Request $nr for ${service_name} completed with status code $code"
 }
 
 if [ -f /preseed_services.txt ]; then
@@ -34,7 +35,7 @@ echo "$service_names" | while IFS= read -r service_name; do
 
   pids=""
   for i in $(seq 1 $FCGI_INSTANCES); do
-    preseed "${url}" $i &
+    preseed "${url}" $i ${service_name} &
     pid=$!
     pids="$pids $pid"
   done
