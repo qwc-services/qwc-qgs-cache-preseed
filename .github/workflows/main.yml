@@ -1,12 +1,15 @@
-name: build
+name: Build and publish docker image
 
-on: [push, pull_request]
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
 
     build:
+      if: github.ref_type == 'tag'
       runs-on: ubuntu-latest
-      if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
       steps:
 
       - uses: actions/checkout@master
@@ -22,7 +25,6 @@ jobs:
 
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@v5
-        if: github.event_name != 'pull_request'
         with:
           name: sourcepole/${{ github.event.repository.name }}
           username: ${{ secrets.DOCKER_HUB_USER }}
